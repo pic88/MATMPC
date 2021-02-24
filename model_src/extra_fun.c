@@ -10,7 +10,7 @@ extern "C" {
   #define _NAMESPACE_CONCAT(NS, ID) NS ## ID
   #define CASADI_PREFIX(ID) NAMESPACE_CONCAT(CODEGEN_PREFIX, ID)
 #else
-  #define CASADI_PREFIX(ID) f_fun_ ## ID
+  #define CASADI_PREFIX(ID) extra_fun_ ## ID
 #endif
 
 #include <math.h>
@@ -52,6 +52,7 @@ casadi_real if_else(casadi_real c, casadi_real x, casadi_real y) { return c!=0 ?
 #define casadi_s0 CASADI_PREFIX(s0)
 #define casadi_s1 CASADI_PREFIX(s1)
 #define casadi_s2 CASADI_PREFIX(s2)
+#define casadi_s3 CASADI_PREFIX(s3)
 #define casadi_to_mex CASADI_PREFIX(to_mex)
 
 /* Printing routine */
@@ -79,6 +80,7 @@ casadi_real if_else(casadi_real c, casadi_real x, casadi_real y) { return c!=0 ?
 static const int casadi_s0[8] = {4, 1, 0, 4, 0, 1, 2, 3};
 static const int casadi_s1[5] = {1, 1, 0, 1, 0};
 static const int casadi_s2[4] = {0, 1, 0, 0};
+static const int casadi_s3[9] = {5, 1, 0, 5, 0, 1, 2, 3, 4};
 
 void casadi_fill(casadi_real* x, int n, casadi_real alpha) {
   int i;
@@ -176,68 +178,65 @@ mxArray* casadi_to_mex(const int* sp, const casadi_real* x) {
 
 #endif
 
-/* f_fun:(states[4],controls,params[0],alg[0])->(xdot[4]) */
+/* extra_fun:(i0[4],i1,i2[0],i3[5],i4[5])->(o0) */
 static int casadi_f0(const casadi_real** arg, casadi_real** res, int* iw, casadi_real* w, void* mem) {
-  casadi_real a0=arg[0] ? arg[0][2] : 0;
+  casadi_real a0=2.0000000000000001e-001;
   if (res[0]!=0) res[0][0]=a0;
-  a0=arg[0] ? arg[0][3] : 0;
-  if (res[0]!=0) res[0][1]=a0;
-  a0=0.;
-  if (res[0]!=0) res[0][2]=a0;
-  if (res[0]!=0) res[0][3]=a0;
   return 0;
 }
 
-CASADI_SYMBOL_EXPORT int f_fun(const casadi_real** arg, casadi_real** res, int* iw, casadi_real* w, void* mem){
+CASADI_SYMBOL_EXPORT int extra_fun(const casadi_real** arg, casadi_real** res, int* iw, casadi_real* w, void* mem){
   return casadi_f0(arg, res, iw, w, mem);
 }
 
-CASADI_SYMBOL_EXPORT void f_fun_incref(void) {
+CASADI_SYMBOL_EXPORT void extra_fun_incref(void) {
 }
 
-CASADI_SYMBOL_EXPORT void f_fun_decref(void) {
+CASADI_SYMBOL_EXPORT void extra_fun_decref(void) {
 }
 
-CASADI_SYMBOL_EXPORT int f_fun_n_in(void) { return 4;}
+CASADI_SYMBOL_EXPORT int extra_fun_n_in(void) { return 5;}
 
-CASADI_SYMBOL_EXPORT int f_fun_n_out(void) { return 1;}
+CASADI_SYMBOL_EXPORT int extra_fun_n_out(void) { return 1;}
 
-CASADI_SYMBOL_EXPORT const char* f_fun_name_in(int i){
+CASADI_SYMBOL_EXPORT const char* extra_fun_name_in(int i){
   switch (i) {
-    case 0: return "states";
-    case 1: return "controls";
-    case 2: return "params";
-    case 3: return "alg";
+    case 0: return "i0";
+    case 1: return "i1";
+    case 2: return "i2";
+    case 3: return "i3";
+    case 4: return "i4";
     default: return 0;
   }
 }
 
-CASADI_SYMBOL_EXPORT const char* f_fun_name_out(int i){
+CASADI_SYMBOL_EXPORT const char* extra_fun_name_out(int i){
   switch (i) {
-    case 0: return "xdot";
+    case 0: return "o0";
     default: return 0;
   }
 }
 
-CASADI_SYMBOL_EXPORT const int* f_fun_sparsity_in(int i) {
+CASADI_SYMBOL_EXPORT const int* extra_fun_sparsity_in(int i) {
   switch (i) {
     case 0: return casadi_s0;
     case 1: return casadi_s1;
     case 2: return casadi_s2;
-    case 3: return casadi_s2;
+    case 3: return casadi_s3;
+    case 4: return casadi_s3;
     default: return 0;
   }
 }
 
-CASADI_SYMBOL_EXPORT const int* f_fun_sparsity_out(int i) {
+CASADI_SYMBOL_EXPORT const int* extra_fun_sparsity_out(int i) {
   switch (i) {
-    case 0: return casadi_s0;
+    case 0: return casadi_s1;
     default: return 0;
   }
 }
 
-CASADI_SYMBOL_EXPORT int f_fun_work(int *sz_arg, int* sz_res, int *sz_iw, int *sz_w) {
-  if (sz_arg) *sz_arg = 4;
+CASADI_SYMBOL_EXPORT int extra_fun_work(int *sz_arg, int* sz_res, int *sz_iw, int *sz_w) {
+  if (sz_arg) *sz_arg = 5;
   if (sz_res) *sz_res = 1;
   if (sz_iw) *sz_iw = 0;
   if (sz_w) *sz_w = 1;
@@ -245,37 +244,38 @@ CASADI_SYMBOL_EXPORT int f_fun_work(int *sz_arg, int* sz_res, int *sz_iw, int *s
 }
 
 #ifdef MATLAB_MEX_FILE
-void mex_f_fun(int resc, mxArray *resv[], int argc, const mxArray *argv[]) {
+void mex_extra_fun(int resc, mxArray *resv[], int argc, const mxArray *argv[]) {
   int i, j;
-  if (argc>4) mexErrMsgIdAndTxt("Casadi:RuntimeError","Evaluation of \"f_fun\" failed. Too many input arguments (%d, max 4)", argc);
-  if (resc>1) mexErrMsgIdAndTxt("Casadi:RuntimeError","Evaluation of \"f_fun\" failed. Too many output arguments (%d, max 1)", resc);
+  if (argc>5) mexErrMsgIdAndTxt("Casadi:RuntimeError","Evaluation of \"extra_fun\" failed. Too many input arguments (%d, max 5)", argc);
+  if (resc>1) mexErrMsgIdAndTxt("Casadi:RuntimeError","Evaluation of \"extra_fun\" failed. Too many output arguments (%d, max 1)", resc);
   int *iw = 0;
-  casadi_real w[13];
-  const casadi_real* arg[4] = {0};
-  if (--argc>=0) arg[0] = casadi_from_mex(argv[0], w, casadi_s0, w+9);
-  if (--argc>=0) arg[1] = casadi_from_mex(argv[1], w+4, casadi_s1, w+9);
-  if (--argc>=0) arg[2] = casadi_from_mex(argv[2], w+5, casadi_s2, w+9);
-  if (--argc>=0) arg[3] = casadi_from_mex(argv[3], w+5, casadi_s2, w+9);
+  casadi_real w[21];
+  const casadi_real* arg[5] = {0};
+  if (--argc>=0) arg[0] = casadi_from_mex(argv[0], w, casadi_s0, w+16);
+  if (--argc>=0) arg[1] = casadi_from_mex(argv[1], w+4, casadi_s1, w+16);
+  if (--argc>=0) arg[2] = casadi_from_mex(argv[2], w+5, casadi_s2, w+16);
+  if (--argc>=0) arg[3] = casadi_from_mex(argv[3], w+5, casadi_s3, w+16);
+  if (--argc>=0) arg[4] = casadi_from_mex(argv[4], w+10, casadi_s3, w+16);
   casadi_real* res[1] = {0};
   --resc;
-  res[0] = w+5;
-  i = f_fun(arg, res, iw, w+9, 0);
-  if (i) mexErrMsgIdAndTxt("Casadi:RuntimeError","Evaluation of \"f_fun\" failed.");
-  if (res[0]) resv[0] = casadi_to_mex(casadi_s0, res[0]);
+  res[0] = w+15;
+  i = extra_fun(arg, res, iw, w+16, 0);
+  if (i) mexErrMsgIdAndTxt("Casadi:RuntimeError","Evaluation of \"extra_fun\" failed.");
+  if (res[0]) resv[0] = casadi_to_mex(casadi_s1, res[0]);
 }
 #endif
 
 
 #ifdef MATLAB_MEX_FILE
 void mexFunction(int resc, mxArray *resv[], int argc, const mxArray *argv[]) {
-  char buf[6];
+  char buf[10];
   int buf_ok = --argc >= 0 && !mxGetString(*argv++, buf, sizeof(buf));
   if (!buf_ok) {
     /* name error */
-  } else if (strcmp(buf, "f_fun")==0) {
-    return mex_f_fun(resc, resv, argc, argv);
+  } else if (strcmp(buf, "extra_fun")==0) {
+    return mex_extra_fun(resc, resv, argc, argv);
   }
-  mexErrMsgTxt("First input should be a command string. Possible values: 'f_fun'");
+  mexErrMsgTxt("First input should be a command string. Possible values: 'extra_fun'");
 }
 #endif
 #ifdef __cplusplus

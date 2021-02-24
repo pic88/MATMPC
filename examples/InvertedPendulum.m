@@ -60,7 +60,7 @@ b=-m*l*cos(theta)*sin(theta)*omega^2+u*cos(theta)+(M+m)*g*sin(theta);
 c=M+m-m*(cos(theta))^2;
 
 % explicit ODE RHS
-x_dot=[v;omega;a/c;b/(l*c)];  
+x_dot=[v;omega;0*a/c;0*b/(l*c)];  
  
 % algebraic function
 z_fun = [];                   

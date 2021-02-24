@@ -30,6 +30,12 @@ mu_x=SX.sym('mu_x',nbx,1);                  % the i th multiplier for bounds on 
 mu_g=SX.sym('mu_g',nc,1);                  % the i th multiplier for bounds on controls
 muN_g=SX.sym('muN_g',ncN,1);                 % the N th multiplier for inequality constraints
 
+%% Generate extra function
+
+extra_val = 0.2;
+extra_fun = Function('extra_fun', {states,controls,params,refs,Q}, {SX.zeros(1,1)+extra_val});
+
+
 %% Generate some functions
 
 f_fun  = Function('f_fun', {states,controls,params,alg}, {SX.zeros(nx,1)+x_dot},{'states','controls','params','alg'},{'xdot'});
@@ -173,11 +179,14 @@ if strcmp(generate,'y')
     g_fun.generate('g_fun.c',opts);
     path_con_fun.generate('path_con_fun.c',opts);
     path_con_N_fun.generate('path_con_N_fun.c',opts);
+    extra_fun.generate('extra_fun.c',opts);
    
     opts = struct('main',false,'mex',false,'with_header',true);
     cd ../mex_core
+        
         P = CodeGenerator ('casadi_src.c', opts) ;
         P.add(f_fun);
+        P.add(extra_fun);
         P.add(g_fun);
         P.add(vdeFun);
         P.add(adj_ERK_fun);
@@ -257,8 +266,10 @@ if strcmp(compile,'y')
     mex(options, OP_FLAGS, CC_FLAGS, PRINT_FLAGS, 'h_fun.c');
     mex(options, OP_FLAGS, CC_FLAGS, PRINT_FLAGS, 'f_fun.c');
     mex(options, OP_FLAGS, CC_FLAGS, PRINT_FLAGS, 'g_fun.c');
+    mex(options, OP_FLAGS, CC_FLAGS, PRINT_FLAGS, 'extra_fun.c');
 
     cd ../mex_core
+    
     Compile_Mex;
     cd ..
 

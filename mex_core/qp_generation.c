@@ -23,6 +23,7 @@ static double *HesN[1];
 static double *Jac[2];
 static double *JacN[1];
 static double *temp[3];
+static double *extra_val[1];
 
 void exitFcn(){
     if (erk_workspace!=NULL)
@@ -53,6 +54,8 @@ void exitFcn(){
         mxFree(temp[1]);
     if (temp[2]!=NULL)	
         mxFree(temp[2]);
+    if (extra_val[0]!=NULL)	
+        mxFree(extra_val[0]);	
 }
 
 void
@@ -164,6 +167,9 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
         mexMakeMemoryPersistent(Hes[0]); 	
         HesN[0] = (double *) mxMalloc(nyN*nyN * sizeof(double));	
         mexMakeMemoryPersistent(HesN[0]); 	
+        
+        extra_val[0] = (double *) mxMalloc(1 * sizeof(double));	
+        mexMakeMemoryPersistent(extra_val[0]); 
                        
         Jac[0] = (double *) mxMalloc(ny*nx * sizeof(double));	
         mexMakeMemoryPersistent(Jac[0]); 	
@@ -244,6 +250,11 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
         // equality residual        
         for (j=0;j<nx;j++)
             a[i*nx+j] -= x[(i+1)*nx+j];
+        
+        // added function        
+        //for (j=0;j<nx;j++)
+        extra_fun(casadi_in,extra_val);
+        //a[i*nx+3] = extra_val;
        
         // Hessian
         Ji_Fun(casadi_in, Jac);
