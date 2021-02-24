@@ -15,6 +15,7 @@ disp('--------------------------------------------------------------------------
 
 %% Insert Model here
 addpath([pwd,'/examples']);
+addpath([userpath,'\casadi-matlabR2014b-v3.3.0']);
 
 settings.model='InvertedPendulum'; % see the folder "examples" for details
 
@@ -157,7 +158,7 @@ adjN_fun = Function('adjN_fun',{states,params,refN, QN, mu_x,muN_g},{dobjN, adj_
 
 generate=input('Would you like to generate the source code?(y/n)','s');
 
-gcc_version==input('Would you like to compile the 6.3 release of gcc?(y/n)','s');
+gcc_version=input('Would you like to compile the 6.3 release of gcc?(y/n)','s');
 
 if strcmp(generate,'y')
 

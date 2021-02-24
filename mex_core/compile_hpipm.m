@@ -16,7 +16,7 @@ elseif isunix
     OS_LINUX = 1;
 elseif ispc
     OS_WIN = 1;
-    PREFIX = 'D:\Tools';
+    PREFIX = 'C:\msys64\opt';
 else
     disp('Platform not supported')
 end
@@ -30,8 +30,8 @@ if OS_LINUX
                    ];
 elseif OS_WIN
     mexfiles_sp = ['hpipm_sparse.c ', ...
-                   PREFIX,'\hpipm-master\lib\libhpipm.a ', ...
-                   PREFIX,'\blasfeo-master\lib\libblasfeo.a ',...
+                   PREFIX,'\hpipm\lib\libhpipm.a ', ...
+                   PREFIX,'\blasfeo\lib\libblasfeo.a ',...
                    ];
 elseif OS_MAC
     mexfiles_sp = ['hpipm_sparse.c ', ...
@@ -50,8 +50,8 @@ if OS_LINUX
                    ];
 elseif OS_WIN
     mexfiles_pcondsol = ['hpipm_pcond.c ', ...
-                   PREFIX,'\hpipm-master\lib\libhpipm.a ', ...
-                   PREFIX,'\blasfeo-master\lib\libblasfeo.a ',...
+                   PREFIX,'\hpipm\lib\libhpipm.a ', ...
+                   PREFIX,'\blasfeo\lib\libblasfeo.a ',...
                    ];
 elseif OS_MAC
     mexfiles_pcondsol = ['hpipm_pcond.c ', ...
@@ -85,7 +85,7 @@ if OS_LINUX
     mexcmd = [mexcmd, ' -I.. -I/opt/hpipm/include -I/opt/blasfeo/include'];
 elseif OS_WIN
     mexcmd = [mexcmd, ' -O -DINT64 CFLAGS="$CFLAGS -std=c99" '];
-    mexcmd = [mexcmd, ' -I.. -I' PREFIX '\hpipm-master\include -I' PREFIX '\blasfeo-master\include'];
+    mexcmd = [mexcmd, ' -I.. -I' PREFIX '\hpipm\include -I' PREFIX '\blasfeo\include'];
 elseif OS_MAC
     mexcmd = [mexcmd, ' -O -DINT64 CFLAGS="\$CFLAGS -std=c99"'];
     mexcmd = [mexcmd, ' -I.. -I' PREFIX, '/Documents/blasfeo_lib/hpipm/include -I' PREFIX '/Documents/blasfeo_lib/blasfeo/include'];
