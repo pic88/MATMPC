@@ -257,7 +257,7 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
         extra_Fun(casadi_in, casadi_out);
         //OBJ += obj[0];
         //extra_Fun(casadi_in,extra_val);
-        //a[i*nx+3] = extra_val;//;
+        a[i*nx+3] = *extra_val;//;
        
         // Hessian
         Ji_Fun(casadi_in, Jac);
