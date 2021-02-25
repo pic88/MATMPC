@@ -18,16 +18,6 @@ const char* f_fun_name_out(int i);
 const int* f_fun_sparsity_in(int i);
 const int* f_fun_sparsity_out(int i);
 int f_fun_work(int *sz_arg, int* sz_res, int *sz_iw, int *sz_w);
-int extra_fun(const casadi_real** arg, casadi_real** res, int* iw, casadi_real* w, void* mem);
-void extra_fun_incref(void);
-void extra_fun_decref(void);
-int extra_fun_n_out(void);
-int extra_fun_n_in(void);
-const char* extra_fun_name_in(int i);
-const char* extra_fun_name_out(int i);
-const int* extra_fun_sparsity_in(int i);
-const int* extra_fun_sparsity_out(int i);
-int extra_fun_work(int *sz_arg, int* sz_res, int *sz_iw, int *sz_w);
 int g_fun(const casadi_real** arg, casadi_real** res, int* iw, casadi_real* w, void* mem);
 void g_fun_incref(void);
 void g_fun_decref(void);
@@ -288,6 +278,16 @@ const char* CN_fun_name_out(int i);
 const int* CN_fun_sparsity_in(int i);
 const int* CN_fun_sparsity_out(int i);
 int CN_fun_work(int *sz_arg, int* sz_res, int *sz_iw, int *sz_w);
+int extra_fun(const casadi_real** arg, casadi_real** res, int* iw, casadi_real* w, void* mem);
+void extra_fun_incref(void);
+void extra_fun_decref(void);
+int extra_fun_n_out(void);
+int extra_fun_n_in(void);
+const char* extra_fun_name_in(int i);
+const char* extra_fun_name_out(int i);
+const int* extra_fun_sparsity_in(int i);
+const int* extra_fun_sparsity_out(int i);
+int extra_fun_work(int *sz_arg, int* sz_res, int *sz_iw, int *sz_w);
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

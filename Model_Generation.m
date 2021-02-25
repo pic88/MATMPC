@@ -33,7 +33,7 @@ muN_g=SX.sym('muN_g',ncN,1);                 % the N th multiplier for inequalit
 %% Generate extra function
 
 extra_val = 0.2;
-extra_fun = Function('extra_fun', {states,controls,params,refs,Q}, {extra_val});
+extra_fun = Function('extra_fun',{states,controls,params,refs,Q},{extra_val+SX.zeros(1,1)});
 
 
 %% Generate some functions
@@ -179,14 +179,13 @@ if strcmp(generate,'y')
     g_fun.generate('g_fun.c',opts);
     path_con_fun.generate('path_con_fun.c',opts);
     path_con_N_fun.generate('path_con_N_fun.c',opts);
-    extra_fun.generate('extra_fun.c',opts);
+    %extra_fun.generate('extra_fun.c',opts);
    
     opts = struct('main',false,'mex',false,'with_header',true);
     cd ../mex_core
         
         P = CodeGenerator ('casadi_src.c', opts) ;
         P.add(f_fun);
-        P.add(extra_fun);
         P.add(g_fun);
         P.add(vdeFun);
         P.add(adj_ERK_fun);
@@ -213,6 +212,8 @@ if strcmp(generate,'y')
         P.add(JN_fun);
         P.add(Ci_fun);
         P.add(CN_fun);
+        
+        P.add(extra_fun);
               
         P.generate();
     cd ..
@@ -266,7 +267,7 @@ if strcmp(compile,'y')
     mex(options, OP_FLAGS, CC_FLAGS, PRINT_FLAGS, 'h_fun.c');
     mex(options, OP_FLAGS, CC_FLAGS, PRINT_FLAGS, 'f_fun.c');
     mex(options, OP_FLAGS, CC_FLAGS, PRINT_FLAGS, 'g_fun.c');
-    mex(options, OP_FLAGS, CC_FLAGS, PRINT_FLAGS, 'extra_fun.c');
+    %mex(options, OP_FLAGS, CC_FLAGS, PRINT_FLAGS, 'extra_fun.c');
 
     cd ../mex_core
     

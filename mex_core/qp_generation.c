@@ -114,11 +114,14 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
     double *ub_dx = mxGetPr( mxGetField(prhs[2], 0, "ub_dx") );
     double *z_out = mxGetPr( mxGetField(prhs[2], 0, "z_out") );
     
+    //double *obj = mxGetPr( mxGetField(prhs[2], 0, "obj") );
+    double *extra_val = mxGetPr( mxGetField(prhs[2], 0, "extra_val") );
+    
     double reg = mxGetScalar( mxGetField(prhs[2], 0, "reg") );
     int hessian_type = mxGetScalar( mxGetField(prhs[2], 0, "hessian") );
     
-    double extra_val;
-    double *extra_val_ptr[1];
+    //double extra_val;
+    //double *extra_val_ptr[1];
     
     for (i=0;i<nx;i++)
         ds0[i] = x0[i] - x[i];
@@ -250,8 +253,11 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
         
         // added function        
         //for (j=0;j<nx;j++)
-        extra_fun(casadi_in,extra_val_ptr);
-        a[i*nx+3] = *extra_val_ptr[0];//;
+        casadi_out[0] = extra_val;
+        extra_Fun(casadi_in, casadi_out);
+        //OBJ += obj[0];
+        //extra_Fun(casadi_in,extra_val);
+        //a[i*nx+3] = extra_val;//;
        
         // Hessian
         Ji_Fun(casadi_in, Jac);
