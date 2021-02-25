@@ -17,7 +17,7 @@ function [input, data] = InitData(settings)
     switch settings.model
                       
         case 'InvertedPendulum'
-            input.x0 = [0;pi;0;0];    
+            input.x0 = [0;pi;0;0;0];    
             input.u0 = zeros(nu,1); 
             input.z0 = zeros(nz,1);
             para0 = 0;  

@@ -103,7 +103,7 @@ mem = InitMemory(settings, opt, input);
 mem.iter = 1; time = 0.0;
 Tf = 4;  % simulation time
 state_sim= input.x0';
-controls_MPC = input.u0';
+controls_MPC = [];
 y_sim = [];
 constraints = [];
 CPT = [];
@@ -180,8 +180,9 @@ while time(end) < Tf
     sim_input.z = input.z(:,1);
     sim_input.p = input.od(:,1);
 
-    [xf, zf] = Simulate_System(sim_input.x, sim_input.u, sim_input.z, sim_input.p, mem, settings);
-    xf = full(xf);
+%     [xf, zf] = Simulate_System(sim_input.x, sim_input.u, sim_input.z, sim_input.p, mem, settings);
+%     xf = full(xf);
+    xf = output.x(:,2);
     
     % Collect outputs
     y_sim = [y_sim; full(h_fun('h_fun', xf, sim_input.u, sim_input.p))'];  

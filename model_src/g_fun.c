@@ -76,7 +76,7 @@ casadi_real if_else(casadi_real c, casadi_real x, casadi_real y) { return c!=0 ?
   #endif
 #endif
 
-static const int casadi_s0[8] = {4, 1, 0, 4, 0, 1, 2, 3};
+static const int casadi_s0[9] = {5, 1, 0, 5, 0, 1, 2, 3, 4};
 static const int casadi_s1[5] = {1, 1, 0, 1, 0};
 static const int casadi_s2[4] = {0, 1, 0, 0};
 
@@ -176,7 +176,7 @@ mxArray* casadi_to_mex(const int* sp, const casadi_real* x) {
 
 #endif
 
-/* g_fun:(states[4],controls,params[0],xdot[4],alg[0])->(zfun) */
+/* g_fun:(states[5],controls,params[0],xdot[5],alg[0])->(zfun) */
 static int casadi_f0(const casadi_real** arg, casadi_real** res, int* iw, casadi_real* w, void* mem) {
   casadi_real a0=0.;
   if (res[0]!=0) res[0][0]=a0;
@@ -247,17 +247,17 @@ void mex_g_fun(int resc, mxArray *resv[], int argc, const mxArray *argv[]) {
   if (argc>5) mexErrMsgIdAndTxt("Casadi:RuntimeError","Evaluation of \"g_fun\" failed. Too many input arguments (%d, max 5)", argc);
   if (resc>1) mexErrMsgIdAndTxt("Casadi:RuntimeError","Evaluation of \"g_fun\" failed. Too many output arguments (%d, max 1)", resc);
   int *iw = 0;
-  casadi_real w[14];
+  casadi_real w[17];
   const casadi_real* arg[5] = {0};
-  if (--argc>=0) arg[0] = casadi_from_mex(argv[0], w, casadi_s0, w+10);
-  if (--argc>=0) arg[1] = casadi_from_mex(argv[1], w+4, casadi_s1, w+10);
-  if (--argc>=0) arg[2] = casadi_from_mex(argv[2], w+5, casadi_s2, w+10);
-  if (--argc>=0) arg[3] = casadi_from_mex(argv[3], w+5, casadi_s0, w+10);
-  if (--argc>=0) arg[4] = casadi_from_mex(argv[4], w+9, casadi_s2, w+10);
+  if (--argc>=0) arg[0] = casadi_from_mex(argv[0], w, casadi_s0, w+12);
+  if (--argc>=0) arg[1] = casadi_from_mex(argv[1], w+5, casadi_s1, w+12);
+  if (--argc>=0) arg[2] = casadi_from_mex(argv[2], w+6, casadi_s2, w+12);
+  if (--argc>=0) arg[3] = casadi_from_mex(argv[3], w+6, casadi_s0, w+12);
+  if (--argc>=0) arg[4] = casadi_from_mex(argv[4], w+11, casadi_s2, w+12);
   casadi_real* res[1] = {0};
   --resc;
-  res[0] = w+9;
-  i = g_fun(arg, res, iw, w+10, 0);
+  res[0] = w+11;
+  i = g_fun(arg, res, iw, w+12, 0);
   if (i) mexErrMsgIdAndTxt("Casadi:RuntimeError","Evaluation of \"g_fun\" failed.");
   if (res[0]) resv[0] = casadi_to_mex(casadi_s1, res[0]);
 }

@@ -51,7 +51,7 @@ HEAD2_PATH = '';
 
 %% These functions should be all compiled
 
-mex(options, OP_FLAGS, CC_FLAGS, PRINT_FLAGS, HEAD1_PATH, LIB1_PATH, 'qp_generation.c','casadi_wrapper.c','sim.c','erk.c','irk_ode.c','irk_dae.c','casadi_src.c','mpc_common.c',LIB1, LIB2);
+mex(options, OP_FLAGS, CC_FLAGS, PRINT_FLAGS, HEAD1_PATH, LIB1_PATH, 'qp_generation_delay.c','casadi_wrapper.c','sim.c','erk.c','irk_ode.c','irk_dae.c','casadi_src.c','mpc_common.c',LIB1, LIB2); %'qp_generation.c',
 
 mex(options, CC_FLAGS, OP_FLAGS, PRINT_FLAGS, 'Condensing.c','mpc_common.c', LIB1);
 

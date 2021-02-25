@@ -26,7 +26,9 @@ switch settings.model
         title('\omega');
         subplot(3,2,[5 6]);
         title('F');
-        stairs(time,controls_MPC(:,1));
+        stairs(time,state_sim(:,5));
+        hold on
+        stairs(time(1:end-1),controls_MPC(:,1),'--');
         
     case 'ChainofMasses_Lin'
         figure(1);
