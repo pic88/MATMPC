@@ -1,0 +1,140 @@
+
+--------------------------------------------------------------------------------
+          Access violation detected at Thu Feb 25 09:58:27 2021 +0100
+--------------------------------------------------------------------------------
+
+Configuration:
+  Crash Decoding           : Disabled - No sandbox or build area path
+  Crash Mode               : continue (default)
+  Default Encoding         : windows-1252
+  Deployed                 : false
+  Graphics Driver          : Unknown hardware 
+  Graphics card 1          : NVIDIA ( 0x10de ) NVIDIA Quadro 2000 Version 21.21.13.7783 (2018-1-13)
+  Java Version             : Java 1.8.0_202-b08 with Oracle Corporation Java HotSpot(TM) 64-Bit Server VM mixed mode
+  MATLAB Architecture      : win64
+  MATLAB Entitlement ID    : 3635446
+  MATLAB Root              : C:\Program Files\MATLAB\R2019b
+  MATLAB Version           : 9.7.0.1471314 (R2019b) Update 7
+  OpenGL                   : hardware
+  Operating System         : Microsoft Windows 10 Pro
+  Process ID               : 10948
+  Processor ID             : x86 Family 6 Model 58 Stepping 9, GenuineIntel
+  Session Key              : 6e35c822-6455-4691-b427-1e7f00dd595a
+  Window System            : Version 10.0 (Build 18363)
+
+Fault Count: 1
+
+
+Abnormal termination:
+Access violation
+
+Register State (from fault):
+  RAX = 000000001081427b  RBX = 0000000000000000
+  RCX = 3fc999999999999a  RDX = 00000000043f6328
+  RSP = 00000000043f6148  RBP = 00000000043f6250
+  RSI = 000000013f45a4c0  RDI = 0000000000000000
+ 
+   R8 = 0000000000000004   R9 = 0000000000000004
+  R10 = 0000000000000000  R11 = 0000000000000004
+  R12 = 000000013f3d07a0  R13 = 0000000000000000
+  R14 = 0000000000000000  R15 = 000000013f45fa00
+ 
+  RIP = 00007fff49ca8b02  EFL = 00010206
+ 
+   CS = 0033   FS = 0053   GS = 002b
+
+Stack Trace (from fault):
+[  0] 0x00007fff49ca8b02 C:\Users\Olimpo\Documents\GitHub\MATMPC\mex_core\qp_generation.mexw64+00035586 extra_fun+00000018
+[  1] 0x00007fff49ca1fbc C:\Users\Olimpo\Documents\GitHub\MATMPC\mex_core\qp_generation.mexw64+00008124 mexFunction+00003756
+[  2] 0x00000000fc636d66 C:\Program Files\MATLAB\R2019b\bin\win64\libmex.dll+00355686 mexfile::Inspector::needs_upgrade+00012886
+[  3] 0x00000000fc637f4b C:\Program Files\MATLAB\R2019b\bin\win64\libmex.dll+00360267 MexRetrieveVersion+00003339
+[  4] 0x00000000fc6380bc C:\Program Files\MATLAB\R2019b\bin\win64\libmex.dll+00360636 MexRetrieveVersion+00003708
+[  5] 0x00000000fc638224 C:\Program Files\MATLAB\R2019b\bin\win64\libmex.dll+00360996 MexRetrieveVersion+00004068
+[  6] 0x00000000fc61a2c9 C:\Program Files\MATLAB\R2019b\bin\win64\libmex.dll+00238281 mexUnlock_800+00025209
+[  7] 0x000000001b955f09                     bin\win64\pgo\m_dispatcher.dll+00614153 Mfh_file::dispatch_file_common+00000165
+[  8] 0x000000001b955589                     bin\win64\pgo\m_dispatcher.dll+00611721 Mfh_error::lookup+00006517
+[  9] 0x000000001b955e5d                     bin\win64\pgo\m_dispatcher.dll+00613981 Mfh_file::dispatch+00000045
+[ 10] 0x000000001c701c05                            bin\win64\pgo\m_lxe.dll+00465925
+[ 11] 0x000000001c7049a0                            bin\win64\pgo\m_lxe.dll+00477600
+[ 12] 0x000000001c70107c                            bin\win64\pgo\m_lxe.dll+00462972
+[ 13] 0x000000001c7f8bb1                            bin\win64\pgo\m_lxe.dll+01477553 MathWorks::lxe::StartupLxeEngine+00904877
+[ 14] 0x000000001c6f31dd                            bin\win64\pgo\m_lxe.dll+00405981
+[ 15] 0x000000001c6f545a                            bin\win64\pgo\m_lxe.dll+00414810
+[ 16] 0x000000001c6f633d                            bin\win64\pgo\m_lxe.dll+00418621
+[ 17] 0x000000001c6f5f2f                            bin\win64\pgo\m_lxe.dll+00417583
+[ 18] 0x000000001c806da0                            bin\win64\pgo\m_lxe.dll+01535392 MathWorks::lxe::StartupLxeEngine+00962716
+[ 19] 0x000000001c6fea0b                            bin\win64\pgo\m_lxe.dll+00453131
+[ 20] 0x000000001c6f47e5                            bin\win64\pgo\m_lxe.dll+00411621
+[ 21] 0x000000001c6f38fc                            bin\win64\pgo\m_lxe.dll+00407804
+[ 22] 0x000000001c6be04b                            bin\win64\pgo\m_lxe.dll+00188491
+[ 23] 0x000000001c6c0213                            bin\win64\pgo\m_lxe.dll+00197139
+[ 24] 0x000000001c6c010a                            bin\win64\pgo\m_lxe.dll+00196874
+[ 25] 0x000000001c7b81a8                            bin\win64\pgo\m_lxe.dll+01212840 MathWorks::lxe::StartupLxeEngine+00640164
+[ 26] 0x000000001c7b8156                            bin\win64\pgo\m_lxe.dll+01212758 MathWorks::lxe::StartupLxeEngine+00640082
+[ 27] 0x000000001c7b80d2                            bin\win64\pgo\m_lxe.dll+01212626 MathWorks::lxe::StartupLxeEngine+00639950
+[ 28] 0x000000001e1aba3a                            bin\win64\pgo\m_lxe.dll+28424762 MathWorks::lxe::profiler::IMexProfilingSupport::~IMexProfilingSupport+00083870
+[ 29] 0x000000001bb3ef77                    bin\win64\pgo\m_interpreter.dll+00388983 inEvalCmdForDebugger+00000063
+[ 30] 0x00000000fb60d746 C:\Program Files\MATLAB\R2019b\bin\win64\libmwbridge.dll+00120646 MLInitialize_libmwbridge+00021334
+[ 31] 0x000000001e1009a5                            bin\win64\pgo\m_lxe.dll+27724197 foundation::core::except::Exception<MathWorks::lxe::profiler::CoderProfilingException,std::exception,void>::what+00530769
+[ 32] 0x000000001e10115f                            bin\win64\pgo\m_lxe.dll+27726175 foundation::core::except::Exception<MathWorks::lxe::profiler::CoderProfilingException,std::exception,void>::what+00532747
+[ 33] 0x000000001e102024                            bin\win64\pgo\m_lxe.dll+27729956 foundation::core::except::Exception<MathWorks::lxe::profiler::CoderProfilingException,std::exception,void>::what+00536528
+[ 34] 0x000000001e101870                            bin\win64\pgo\m_lxe.dll+27727984 foundation::core::except::Exception<MathWorks::lxe::profiler::CoderProfilingException,std::exception,void>::what+00534556
+[ 35] 0x000000001c752dad                            bin\win64\pgo\m_lxe.dll+00798125 MathWorks::lxe::StartupLxeEngine+00225449
+[ 36] 0x000000001c6f6112                            bin\win64\pgo\m_lxe.dll+00418066
+[ 37] 0x000000001c6f5f2f                            bin\win64\pgo\m_lxe.dll+00417583
+[ 38] 0x000000001c806da0                            bin\win64\pgo\m_lxe.dll+01535392 MathWorks::lxe::StartupLxeEngine+00962716
+[ 39] 0x000000001c6fea0b                            bin\win64\pgo\m_lxe.dll+00453131
+[ 40] 0x000000001c6f47e5                            bin\win64\pgo\m_lxe.dll+00411621
+[ 41] 0x000000001c6f38fc                            bin\win64\pgo\m_lxe.dll+00407804
+[ 42] 0x000000001c8a657d                            bin\win64\pgo\m_lxe.dll+02188669 mwboost::archive::detail::oserializer<mwboost::archive::binaryTerm_oarchive,MathWorks::lxe::MatlabIrTree>::oserializer<mwboost::archive::binaryTerm_oarchive,MathWorks::lxe::MatlabIrTree>+00020429
+[ 43] 0x000000001c6f36e0                            bin\win64\pgo\m_lxe.dll+00407264
+[ 44] 0x000000001c83b84d                            bin\win64\pgo\m_lxe.dll+01751117 MathWorks::lxe::StartupLxeEngine+01178441
+[ 45] 0x000000001b955f09                     bin\win64\pgo\m_dispatcher.dll+00614153 Mfh_file::dispatch_file_common+00000165
+[ 46] 0x000000001b955589                     bin\win64\pgo\m_dispatcher.dll+00611721 Mfh_error::lookup+00006517
+[ 47] 0x000000001b955e5d                     bin\win64\pgo\m_dispatcher.dll+00613981 Mfh_file::dispatch+00000045
+[ 48] 0x000000001c701c05                            bin\win64\pgo\m_lxe.dll+00465925
+[ 49] 0x000000001c7049a0                            bin\win64\pgo\m_lxe.dll+00477600
+[ 50] 0x000000001c70107c                            bin\win64\pgo\m_lxe.dll+00462972
+[ 51] 0x000000001c7f8bb1                            bin\win64\pgo\m_lxe.dll+01477553 MathWorks::lxe::StartupLxeEngine+00904877
+[ 52] 0x000000001c6f31dd                            bin\win64\pgo\m_lxe.dll+00405981
+[ 53] 0x000000001c6f545a                            bin\win64\pgo\m_lxe.dll+00414810
+[ 54] 0x000000001c6f633d                            bin\win64\pgo\m_lxe.dll+00418621
+[ 55] 0x000000001c6f5f2f                            bin\win64\pgo\m_lxe.dll+00417583
+[ 56] 0x000000001c806da0                            bin\win64\pgo\m_lxe.dll+01535392 MathWorks::lxe::StartupLxeEngine+00962716
+[ 57] 0x000000001c6fea0b                            bin\win64\pgo\m_lxe.dll+00453131
+[ 58] 0x000000001c6f47e5                            bin\win64\pgo\m_lxe.dll+00411621
+[ 59] 0x000000001c6f38fc                            bin\win64\pgo\m_lxe.dll+00407804
+[ 60] 0x000000001c6be04b                            bin\win64\pgo\m_lxe.dll+00188491
+[ 61] 0x000000001c6c0213                            bin\win64\pgo\m_lxe.dll+00197139
+[ 62] 0x000000001c6c010a                            bin\win64\pgo\m_lxe.dll+00196874
+[ 63] 0x000000001c7b81a8                            bin\win64\pgo\m_lxe.dll+01212840 MathWorks::lxe::StartupLxeEngine+00640164
+[ 64] 0x000000001c7b8156                            bin\win64\pgo\m_lxe.dll+01212758 MathWorks::lxe::StartupLxeEngine+00640082
+[ 65] 0x000000001e1ab7b4                            bin\win64\pgo\m_lxe.dll+28424116 MathWorks::lxe::profiler::IMexProfilingSupport::~IMexProfilingSupport+00083224
+[ 66] 0x00000000fb61b19c C:\Program Files\MATLAB\R2019b\bin\win64\libmwbridge.dll+00176540 mnParser+00001212
+[ 67] 0x000000001b76d5f7   C:\Program Files\MATLAB\R2019b\bin\win64\mcr.dll+00906743 mcrInstance::releaseThread+00002647
+[ 68] 0x000000001b6aa0ca   C:\Program Files\MATLAB\R2019b\bin\win64\mcr.dll+00106698 mcrOptions::set_use_license_manager+00068938
+[ 69] 0x000000001b6ca334   C:\Program Files\MATLAB\R2019b\bin\win64\mcr.dll+00238388 mcrOptions::set_use_license_manager+00200628
+[ 70] 0x00000000fd02047e   C:\Program Files\MATLAB\R2019b\bin\win64\iqm.dll+00590974 iqm::PackagedTaskPlugin::execute+00000878
+[ 71] 0x00000000fd020303   C:\Program Files\MATLAB\R2019b\bin\win64\iqm.dll+00590595 iqm::PackagedTaskPlugin::execute+00000499
+[ 72] 0x000000001b7137de   C:\Program Files\MATLAB\R2019b\bin\win64\mcr.dll+00538590 mcr::runtime::setInterpreterThreadSingletonToCurrent+00188382
+[ 73] 0x00000000fcffca21   C:\Program Files\MATLAB\R2019b\bin\win64\iqm.dll+00444961 iqm::Iqm::setupIqmFcnPtrs+00101969
+[ 74] 0x00000000fcfd3ab7   C:\Program Files\MATLAB\R2019b\bin\win64\iqm.dll+00277175 iqm::Iqm::create+00009159
+[ 75] 0x00000000fcfd326d   C:\Program Files\MATLAB\R2019b\bin\win64\iqm.dll+00275053 iqm::Iqm::create+00007037
+[ 76] 0x000000001b6f120f   C:\Program Files\MATLAB\R2019b\bin\win64\mcr.dll+00397839 mcr::runtime::setInterpreterThreadSingletonToCurrent+00047631
+[ 77] 0x000000001b6f17fe   C:\Program Files\MATLAB\R2019b\bin\win64\mcr.dll+00399358 mcr::runtime::setInterpreterThreadSingletonToCurrent+00049150
+[ 78] 0x000000001b6f040c   C:\Program Files\MATLAB\R2019b\bin\win64\mcr.dll+00394252 mcr::runtime::setInterpreterThreadSingletonToCurrent+00044044
+[ 79] 0x000000001b7b27d6   C:\Program Files\MATLAB\R2019b\bin\win64\mcr.dll+01189846 mcr::mvm::detail::activateMcr+00016598
+[ 80] 0x000000001b5e0dbf C:\Program Files\MATLAB\R2019b\bin\win64\MVMLocal.dll+00396735 mvm_server::inproc::LocalFactory::terminate+00187135
+[ 81] 0x00000000fa9e7c10   C:\Program Files\MATLAB\R2019b\bin\win64\mvm.dll+01801232 mvm::detail::SessionImpl::initWithOptions+00000736
+[ 82] 0x00000000fa9e8941   C:\Program Files\MATLAB\R2019b\bin\win64\mvm.dll+01804609 mvm::detail::SessionImpl::runMain+00000081
+[ 83] 0x00000000fa9e8bc7   C:\Program Files\MATLAB\R2019b\bin\win64\mvm.dll+01805255 mvm::detail::SessionImpl::runMatlabDesktop+00000279
+[ 84] 0x000000014000782c C:\Program Files\MATLAB\R2019b\bin\win64\MATLAB.exe+00030764 mwboost::serialization::singleton_module::unlock+00001180
+[ 85] 0x000000014000870a C:\Program Files\MATLAB\R2019b\bin\win64\MATLAB.exe+00034570 mwboost::serialization::singleton_module::unlock+00004986
+[ 86] 0x00007fff51f97c24                   C:\WINDOWS\System32\KERNEL32.DLL+00097316 BaseThreadInitThunk+00000020
+[ 87] 0x00007fff5334d721                      C:\WINDOWS\SYSTEM32\ntdll.dll+00448289 RtlUserThreadStart+00000033
+
+
+This error was detected while a MEX-file was running. If the MEX-file
+is not an official MathWorks function, please examine its source code
+for errors. Please consult the External Interfaces Guide for information
+on debugging MEX-files.

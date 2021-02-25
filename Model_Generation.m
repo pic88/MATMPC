@@ -33,7 +33,7 @@ muN_g=SX.sym('muN_g',ncN,1);                 % the N th multiplier for inequalit
 %% Generate extra function
 
 extra_val = 0.2;
-extra_fun = Function('extra_fun', {states,controls,params,refs,Q}, {SX.zeros(1,1)+extra_val});
+extra_fun = Function('extra_fun', {states,controls,params,refs,Q}, {extra_val});
 
 
 %% Generate some functions
