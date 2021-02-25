@@ -102,8 +102,9 @@ mem = InitMemory(settings, opt, input);
 
 mem.iter = 1; time = 0.0;
 Tf = 4;  % simulation time
-state_sim= input.x0';
-controls_MPC = [];
+state_sim = input.x0';
+controls_MPC = input.u0';
+% controls_MPC = [];
 y_sim = [];
 constraints = [];
 CPT = [];
@@ -127,9 +128,11 @@ while time(end) < Tf
             input.y = data.REF(mem.iter:mem.iter+N-1,:)';
             input.yN = data.REF(mem.iter+N,1:nyN)';
     end
-              
+    
     % obtain the state measurement
-    input.x0 = state_sim(end,:)';
+%     if mem.iter > 1
+        input.x0 = state_sim(end,:)';
+%     end
     
     % call the NMPC solver 
     [output, mem] = mpc_nmpcsolver(input, settings, mem, opt);
@@ -172,13 +175,32 @@ while time(end) < Tf
     OptCrit=output.info.OptCrit;
     
     % Simulate system dynamics
-    sim_input.x = state_sim(end,:).';
+%     sim_input.x = state_sim(end,:).';
     sim_input.u = output.u(:,1);
     sim_input.z = input.z(:,1);
     sim_input.p = input.od(:,1);
-
-%     [xf, zf] = Simulate_System(sim_input.x, sim_input.u, sim_input.z, sim_input.p, mem, settings);
+% 
+%     [xf1, zf] = Simulate_System(sim_input.x, sim_input.u, sim_input.z, sim_input.p, mem, settings);
 %     xf = full(xf);
+
+    % apply the delayed control to the simulated system
+    F = controls_MPC(end);
+    % ERK4 integrator - see function ipDyn
+    z0 = state_sim(end,1:end-1).';
+    dyn = @ipDyn;
+    z = zeros(settings.nx-1,2);
+    z(:,1) = z0;
+    for i=1:1
+        dt = settings.Ts_st;
+        k1 = dyn(time(i),  z(:,i), F(i));
+        k2 = dyn(time(i)+0.5*dt,  z(:,i) + 0.5*dt*k1, F(i));
+        k3 = dyn(time(i)+0.5*dt,  z(:,i) + 0.5*dt*k2, F(i));
+        k4 = dyn(time(i)+dt,  z(:,i) + dt*k3, F(i));
+        z(:,i+1) = z(:,i) + (dt/6)*(k1+2*k2+2*k3+k4);
+    end
+    xf = [z(:,2);F];
+    
+    % Simulate on the model itself
     xf = output.x(:,2);
     
     % Collect outputs
@@ -217,3 +239,33 @@ disp(['Average CPT: ', num2str(mean(CPT(2:end,:),1)) ]);
 disp(['Maximum CPT: ', num2str(max(CPT(2:end,:))) ]);
 
 Draw;
+
+
+%% IP dyn
+
+function dz = ipDyn(t,z,F)
+
+M = 1; 
+m = 0.1;
+l = 0.8; 
+g = 9.81;
+
+
+p = z(1,:);
+theta = z(2,:);
+v = z(3,:);
+omega = z(4,:);
+u_del = F;
+
+a=-m*l*sin(theta)*omega^2+m*g*cos(theta)*sin(theta)+u_del;
+b=-m*l*cos(theta)*sin(theta)*omega^2+u_del*cos(theta)+(M+m)*g*sin(theta);
+c=M+m-m*(cos(theta))^2;
+
+dz = zeros(size(z));
+
+dz(1,:) = z(3,:);
+dz(2,:) = z(4,:);
+dz(3,:) = a/c;
+dz(4,:) = b/(l*c);
+
+end

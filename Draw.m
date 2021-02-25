@@ -28,7 +28,7 @@ switch settings.model
         title('F');
         stairs(time,state_sim(:,5));
         hold on
-        stairs(time(1:end-1),controls_MPC(:,1),'--');
+        stairs(time(1:end-1),controls_MPC(2:end,:),'--');
         legend('x(5)','u')
         
     case 'ChainofMasses_Lin'
