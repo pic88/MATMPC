@@ -249,16 +249,12 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
             a[i*nx+j] -= x[(i+1)*nx+j];
         
         // delay equation
-        A[(i+1)*nx*nx-1] = 0; // remove the fixed point dynamic w.r.t. previous state at the end of the matrix (was A[nx,nx] = 1)
-        B[(i+1)*nx*nu-1] = 1; // add the fixed point dynamic w.r.t. previous input at the end of the matrix (was B[nx,nu] = 0)
+        B[(i+1)*nx*nu-1] = 1; // add the fixed point dynamic w.r.t. previous input at the end of the matrix B[nx,nu] = 1
         a[(i+1)*nx-1] = 0; // remove the residual for last state
         
-        // added function        
-        //for (j=0;j<nx;j++) -> for every state
-        casadi_out[0] = extra_val;
-        extra_Fun(casadi_in, casadi_out);      
-        //a[i*nx+3] = *extra_val;
-       
+        for (j=0;j<nx;j++) 
+            A[(i+1)*nx*nx-1-j*nx] = 0; // remove the fixed point dynamic w.r.t. previous state at the end of the matrix A[nx,:]
+               
         // Hessian
         Ji_Fun(casadi_in, Jac);
         switch(hessian_type){                

@@ -30,11 +30,6 @@ mu_x=SX.sym('mu_x',nbx,1);                  % the i th multiplier for bounds on 
 mu_g=SX.sym('mu_g',nc,1);                  % the i th multiplier for bounds on controls
 muN_g=SX.sym('muN_g',ncN,1);                 % the N th multiplier for inequality constraints
 
-%% Generate extra function
-
-extra_val = 0.2;
-extra_fun = Function('extra_fun',{states,controls,params,refs,Q},{extra_val+SX.zeros(1,1)});
-
 
 %% Generate some functions
 
@@ -213,7 +208,7 @@ if strcmp(generate,'y')
         P.add(Ci_fun);
         P.add(CN_fun);
         
-        P.add(extra_fun);
+%         P.add(extra_fun);
               
         P.generate();
     cd ..

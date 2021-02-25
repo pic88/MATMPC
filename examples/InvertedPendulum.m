@@ -12,7 +12,7 @@
 
 %% Dimensions
 
-nx=4+1;  % No. of differential states, one for delay
+nx=4+1;  % No. of differential states, +1 for input delay state
 nu=1;  % No. of controls
 nz=0;  % No. of algebraic states
 ny=5; % No. of outputs
@@ -53,16 +53,17 @@ p=states(1);
 theta=states(2);
 v=states(3);
 omega=states(4);  
-u_del = states(5);  
+u_del = states(5); % input delay state 
 
-u=controls(1);
+u = controls(1);
 
 a=-m*l*sin(theta)*omega^2+m*g*cos(theta)*sin(theta)+u_del;
 b=-m*l*cos(theta)*sin(theta)*omega^2+u_del*cos(theta)+(M+m)*g*sin(theta);
 c=M+m-m*(cos(theta))^2;
 
 % explicit ODE RHS
-x_dot=[v;omega;a/c;b/(l*c);0];  
+x_dot=[v;omega;a/c;b/(l*c);...
+       0];  % last diff eq is overwritten in the discretized model
  
 % algebraic function
 z_fun = [];                   

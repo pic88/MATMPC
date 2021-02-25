@@ -131,9 +131,6 @@ while time(end) < Tf
     % obtain the state measurement
     input.x0 = state_sim(end,:)';
     
-    % extra val
-    mem.extra_val = 0;
-    
     % call the NMPC solver 
     [output, mem] = mpc_nmpcsolver(input, settings, mem, opt);
         

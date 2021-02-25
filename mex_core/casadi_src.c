@@ -62,7 +62,6 @@ casadi_real if_else(casadi_real c, casadi_real x, casadi_real y) { return c!=0 ?
 #define casadi_f24 CASADI_PREFIX(f24)
 #define casadi_f25 CASADI_PREFIX(f25)
 #define casadi_f26 CASADI_PREFIX(f26)
-#define casadi_f27 CASADI_PREFIX(f27)
 #define casadi_f3 CASADI_PREFIX(f3)
 #define casadi_f4 CASADI_PREFIX(f4)
 #define casadi_f5 CASADI_PREFIX(f5)
@@ -2961,71 +2960,6 @@ CASADI_SYMBOL_EXPORT int CN_fun_work(int *sz_arg, int* sz_res, int *sz_iw, int *
   if (sz_res) *sz_res = 1;
   if (sz_iw) *sz_iw = 0;
   if (sz_w) *sz_w = 0;
-  return 0;
-}
-
-/* extra_fun:(i0[5],i1,i2[0],i3[5],i4[5])->(o0) */
-static int casadi_f27(const casadi_real** arg, casadi_real** res, int* iw, casadi_real* w, void* mem) {
-  casadi_real a0=2.0000000000000001e-001;
-  if (res[0]!=0) res[0][0]=a0;
-  return 0;
-}
-
-CASADI_SYMBOL_EXPORT int extra_fun(const casadi_real** arg, casadi_real** res, int* iw, casadi_real* w, void* mem){
-  return casadi_f27(arg, res, iw, w, mem);
-}
-
-CASADI_SYMBOL_EXPORT void extra_fun_incref(void) {
-}
-
-CASADI_SYMBOL_EXPORT void extra_fun_decref(void) {
-}
-
-CASADI_SYMBOL_EXPORT int extra_fun_n_in(void) { return 5;}
-
-CASADI_SYMBOL_EXPORT int extra_fun_n_out(void) { return 1;}
-
-CASADI_SYMBOL_EXPORT const char* extra_fun_name_in(int i){
-  switch (i) {
-    case 0: return "i0";
-    case 1: return "i1";
-    case 2: return "i2";
-    case 3: return "i3";
-    case 4: return "i4";
-    default: return 0;
-  }
-}
-
-CASADI_SYMBOL_EXPORT const char* extra_fun_name_out(int i){
-  switch (i) {
-    case 0: return "o0";
-    default: return 0;
-  }
-}
-
-CASADI_SYMBOL_EXPORT const int* extra_fun_sparsity_in(int i) {
-  switch (i) {
-    case 0: return casadi_s0;
-    case 1: return casadi_s1;
-    case 2: return casadi_s2;
-    case 3: return casadi_s0;
-    case 4: return casadi_s0;
-    default: return 0;
-  }
-}
-
-CASADI_SYMBOL_EXPORT const int* extra_fun_sparsity_out(int i) {
-  switch (i) {
-    case 0: return casadi_s1;
-    default: return 0;
-  }
-}
-
-CASADI_SYMBOL_EXPORT int extra_fun_work(int *sz_arg, int* sz_res, int *sz_iw, int *sz_w) {
-  if (sz_arg) *sz_arg = 5;
-  if (sz_res) *sz_res = 1;
-  if (sz_iw) *sz_iw = 0;
-  if (sz_w) *sz_w = 1;
   return 0;
 }
 

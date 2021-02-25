@@ -31,6 +31,4 @@ void adjN_Fun(double **in, double **out);
 void obji_Fun(double **in, double **out);
 void objN_Fun(double **in, double **out);
 
-void extra_Fun(double **in, double **out);
-
 #endif
