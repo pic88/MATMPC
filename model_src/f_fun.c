@@ -182,9 +182,45 @@ static int casadi_f0(const casadi_real** arg, casadi_real** res, int* iw, casadi
   if (res[0]!=0) res[0][0]=a0;
   a0=arg[0] ? arg[0][3] : 0;
   if (res[0]!=0) res[0][1]=a0;
-  a0=0.;
-  if (res[0]!=0) res[0][2]=a0;
-  if (res[0]!=0) res[0][3]=a0;
+  casadi_real a1=-8.0000000000000016e-002;
+  casadi_real a2=arg[0] ? arg[0][1] : 0;
+  casadi_real a3=sin(a2);
+  a3=(a1*a3);
+  casadi_real a4=sq(a0);
+  a3=(a3*a4);
+  a4=9.8100000000000009e-001;
+  casadi_real a5=cos(a2);
+  a4=(a4*a5);
+  a5=sin(a2);
+  a4=(a4*a5);
+  a3=(a3+a4);
+  a4=arg[1] ? arg[1][0] : 0;
+  a3=(a3+a4);
+  a5=1.1000000000000001e+000;
+  casadi_real a6=1.0000000000000001e-001;
+  casadi_real a7=cos(a2);
+  a7=sq(a7);
+  a6=(a6*a7);
+  a5=(a5-a6);
+  a3=(a3/a5);
+  if (res[0]!=0) res[0][2]=a3;
+  a3=cos(a2);
+  a1=(a1*a3);
+  a3=sin(a2);
+  a1=(a1*a3);
+  a0=sq(a0);
+  a1=(a1*a0);
+  a0=cos(a2);
+  a4=(a4*a0);
+  a1=(a1+a4);
+  a4=1.0791000000000002e+001;
+  a2=sin(a2);
+  a4=(a4*a2);
+  a1=(a1+a4);
+  a4=8.0000000000000004e-001;
+  a4=(a4*a5);
+  a1=(a1/a4);
+  if (res[0]!=0) res[0][3]=a1;
   return 0;
 }
 
@@ -240,7 +276,7 @@ CASADI_SYMBOL_EXPORT int f_fun_work(int *sz_arg, int* sz_res, int *sz_iw, int *s
   if (sz_arg) *sz_arg = 4;
   if (sz_res) *sz_res = 1;
   if (sz_iw) *sz_iw = 0;
-  if (sz_w) *sz_w = 1;
+  if (sz_w) *sz_w = 8;
   return 0;
 }
 
@@ -250,7 +286,7 @@ void mex_f_fun(int resc, mxArray *resv[], int argc, const mxArray *argv[]) {
   if (argc>4) mexErrMsgIdAndTxt("Casadi:RuntimeError","Evaluation of \"f_fun\" failed. Too many input arguments (%d, max 4)", argc);
   if (resc>1) mexErrMsgIdAndTxt("Casadi:RuntimeError","Evaluation of \"f_fun\" failed. Too many output arguments (%d, max 1)", resc);
   int *iw = 0;
-  casadi_real w[13];
+  casadi_real w[17];
   const casadi_real* arg[4] = {0};
   if (--argc>=0) arg[0] = casadi_from_mex(argv[0], w, casadi_s0, w+9);
   if (--argc>=0) arg[1] = casadi_from_mex(argv[1], w+4, casadi_s1, w+9);
